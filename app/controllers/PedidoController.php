@@ -20,5 +20,4 @@ class PedidoController {
 
         return $pedidos;
     }
-
 }
