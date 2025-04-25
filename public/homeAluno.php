@@ -1,11 +1,14 @@
 <?php 
 require '../app/controllers/PedidoController.php';
+require '../app/models/MaterialController.php';
 require '../app/enums/StatusPedidoEnum.php';
 
     $aluno = $_SESSION['usuario']['nome'];
     $alunoId = $_SESSION['usuario']['id'];
     $pedidoController = new PedidoController($pdo);
+    $materialController = new MaterialController($pdo);
     $pedidos = $pedidoController->allPedidosById($id);
+    $materiais = $materialController->allMateriais();
     $status = new StatusPedido;
 ?>
 
@@ -16,9 +19,14 @@ require '../app/enums/StatusPedidoEnum.php';
 <div> 
     <h4>Faça um pedido</h4>
     <div>
-        <form>
-            <input type="text" name="">
-        </form>
+        <div><h3>Material desejado</h3></div>
+        <select>
+            <option value="" ></option>
+            <?php foreach ($materiais as $material): ?>
+                <option value="" ><?php  $material->nome ?></option>
+
+            <?php endforeach; ?>
+    </select>
     </div>
 </div>
 
