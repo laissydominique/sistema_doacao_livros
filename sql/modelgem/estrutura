@@ -12,7 +12,7 @@ CREATE TABLE `usuarios` (
 CREATE TABLE `pedidos` (
   `id` integer PRIMARY KEY,
   `usuario_id` integer NOT NULL,
-  `status` varchar(255) DEFAULT 'pendente',
+  `status` int DEFAULT 1,
   `criado_em` datetime DEFAULT (CURRENT_TIMESTAMP)
 );
 

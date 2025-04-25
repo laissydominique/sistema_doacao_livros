@@ -21,8 +21,17 @@ class AuthController {
         return false;
     }
 
-    public function register($nome, $email, $senha) {
+    public function register($nome, $email, $senha, $confirmarSenha) {
+        if(!$nome || !$email || !$senha || $confirmarSenha ) {
+            echo 'Preencha todos os campos corretamente';
+            return false;
+        }
+        if($senha !== $confirmarSenha) {
+            echo 'As senhas precisam ser idênticas';
+            return false;
+        }
         $usuario = new Usuario($this->pdo);
-        $usuario->create($nome, $email, $senha);  
+        $usuario->create($nome, $email, $senha); 
+        return true; 
     }
 }
