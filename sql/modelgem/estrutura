@@ -1,0 +1,39 @@
+///estrutura que foi utilizada para a criação das tabelas e colunas no banco:
+
+CREATE TABLE `usuarios` (
+  `id` integer PRIMARY KEY,
+  `nome` varchar(255) NOT NULL,
+  `email` varchar(255) UNIQUE NOT NULL,
+  `senha_hash` varchar(255) NOT NULL,
+  `tipo` int COMMENT '1_estudante ou 2_doador',
+  `criado_em` datetime DEFAULT (CURRENT_TIMESTAMP)
+);
+
+CREATE TABLE `pedidos` (
+  `id` integer PRIMARY KEY,
+  `usuario_id` integer NOT NULL,
+  `status` varchar(255) DEFAULT 'pendente',
+  `criado_em` datetime DEFAULT (CURRENT_TIMESTAMP)
+);
+
+CREATE TABLE `materiais` (
+  `id` integer PRIMARY KEY,
+  `pedido_id` integer NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `quantidade` integer DEFAULT 1
+);
+
+CREATE TABLE `doacoes` (
+  `id` integer PRIMARY KEY,
+  `doador_id` integer NOT NULL,
+  `pedido_id` integer NOT NULL,
+  `data_doacao` datetime DEFAULT (CURRENT_TIMESTAMP)
+);
+
+ALTER TABLE `pedidos` ADD FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
+
+ALTER TABLE `materiais` ADD FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`);
+
+ALTER TABLE `doacoes` ADD FOREIGN KEY (`doador_id`) REFERENCES `usuarios` (`id`);
+
+ALTER TABLE `doacoes` ADD FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`);
